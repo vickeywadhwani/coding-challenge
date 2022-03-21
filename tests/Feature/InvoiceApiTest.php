@@ -9,8 +9,13 @@ class InvoiceApiTests extends TestCase
 {
     public function testHtppStatus200()
     {
-        $response = $this->getJson('/api/invoice/vizma/1');
+        $response = $this->get('/api/invoice/vizma/1');
         $response->assertStatus(200);
+    }
+
+    public function testApiJsonStructure()
+    {
+        $response = $this->getJson('/api/invoice/vizma/1');
         $response->assertJsonStructure([
             'id',
             'invoice_nr',
@@ -35,14 +40,14 @@ class InvoiceApiTests extends TestCase
 
     public function testHtppStatus404()
     {
-        $response = $this->call('GET', '/api/invoice/vizma/2');
+        $response = $this->get('/api/invoice/vizma/2');
 
         $response->assertStatus(404);
     }
 
     public function testHtppStatus500()
     {
-        $response = $this->call('GET', '/api/invoice/vizma2/2');
+        $response = $this->get('/api/invoice/vizma2/2');
 
         $response->assertStatus(404);
     }
